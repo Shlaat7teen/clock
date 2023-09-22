@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Time Display</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 20px;
+        }
+        #time-display {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #007BFF;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+    </style>
+    
+</head>
+<body>
+    <div id="time-display"></div>
+    <button onclick="startTimer()">Start Timer</button>
+    <script>
+        let h = 0, m = 0, s = 0;
+        let timer;
+
+        function updateTime() {
+            document.getElementById("time-display").innerText = `${h}:${m}:${s}`;
+            s++;
+            if (s > 59) {
+                s = 0;
+                m++;
+            }
+            if (m > 59) {
+                m = 0;
+                h++;
+            }
+            if (h > 24) {
+                h = 0;
+            }
+        }
+
+        function startTimer() {
+            // Prompt the user for input
+            const inputHour = parseInt(prompt("Enter hour:"));
+            const inputMinute = parseInt(prompt("Enter minute:"));
+            const inputSecond = parseInt(prompt("Enter second:"));
+
+            // Validate the input
+            if (!isNaN(inputHour) && !isNaN(inputMinute) && !isNaN(inputSecond) &&
+                inputHour >= 0 && inputHour < 24 &&
+                inputMinute >= 0 && inputMinute < 60 &&
+                inputSecond >= 0 && inputSecond < 60) {
+                // Set the time to the user's input
+                h = inputHour;
+                m = inputMinute;
+                s = inputSecond;
+
+                // Start the timer
+                clearInterval(timer);
+                timer = setInterval(updateTime, 1000);
+            } else {
+                alert("Invalid input. Please enter valid values.");
+            }
+        }
+    </script>
+</body>
+</html>
+
+
